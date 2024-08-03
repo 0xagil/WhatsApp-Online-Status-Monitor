@@ -20,6 +20,7 @@
 - 🖥️ User-friendly web interface
 - 📱 Responsive design for mobile and desktop
 - 👪 Concurrent Multiple Contacts Tracking
+- ⌛ Accurate to the second
 
 ## 🛠 Prerequisites
 
