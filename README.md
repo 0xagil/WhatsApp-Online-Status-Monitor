@@ -11,8 +11,11 @@
 
 ---
 
-## 🌟 Features
+## ✅ Status
+- Last checked: August 3, 2024
+- Status: Working
 
+## 🌟 Features
 - 👀 Monitor selected WhatsApp contacts' online/offline status
 - ⏰ Real-time updates and notifications
 - 📈 Visual representation of online periods
