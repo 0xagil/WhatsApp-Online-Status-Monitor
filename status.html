@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Status Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #25D366;
+      --secondary-color: #128C7E;
+      --background-color: #ECE5DD;
+      --text-color: #075E54;
+      --card-bg-color: #FFFFFF;
+      --online-color: #4CAF50;
+      --offline-color: #F44336;
+      --header-offline-color: #075E54;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background-color);
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+    }
+
+    .header {
+      background-color: var(--secondary-color);
+      padding: 15px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .header h1 {
+      color: white;
+      margin: 0;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .nav-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+
+    .nav-links li {
+      margin-left: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .header {
+      background-color: var(--secondary-color);
+      padding: 15px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .header h1 {
+      color: white;
+      margin: 0;
+      font-size: 24px;
+    }
+    .author {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--secondary-color);
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .chart-container {
+      background-color: var(--card-bg-color);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .chart-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+      background-color: var(--header-offline-color);
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .chart-header.online {
+      background-color: var(--primary-color);
+    }
+
+    .chart-title {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .chart-username {
+      font-size: 14px;
+      font-weight: 400;
+      margin-left: 8px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+
+    .status-indicator {
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .status-online {
+      background-color: var(--online-color);
+    }
+
+    .status-offline {
+      background-color: var(--offline-color);
+    }
+
+    .chart-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .chart-content.active {
+      max-height: 300px;
+    }
+
+    .chart-container canvas {
+      padding: 20px;
+      width: calc(100% - 40px) !important;
+      height: 250px !important;
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        margin-top: 10px;
+      }
+
+      .nav-links li {
+        margin-left: 0;
+        margin-right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-content">
+    <h1>WhatsApp Status Monitor<span class="author"> by 0xagil</span></h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/select">Select Contacts</a></li>
+        <li><a href="/status">View Status</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="container">
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search contacts...">
+  </div>
+  <div id="charts-container">
+    {{range $jid, $data := .}}
+    <div class="chart-container" id='{{$jid}}'>
+      <div class="chart-header {{if eq $data.CurrentStatus "Online"}}online{{end}}" onclick="toggleChart('{{$jid}}')">
+      <div>
+        <span class="chart-title">{{$jid}}</span>
+        <span class="chart-username"></span>
+      </div>
+      <span id="status-{{$jid}}" class="status-indicator {{if eq $data.CurrentStatus "Online"}}status-online{{else}}status-offline{{end}}">
+      {{$data.CurrentStatus}}
+      </span>
+    </div>
+    <div id="chart-content-{{$jid}}" class="chart-content">
+      <canvas id="chart-{{$jid}}"></canvas>
+    </div>
+  </div>
+  {{end}}
+</div>
+</div>
+<script>
+  const charts = {};
+
+  function toggleChart(jid) {
+    const content = document.getElementById(`chart-content-${jid}`);
+    content.classList.toggle('active');
+    if (content.classList.contains('active') && !charts[jid]) {
+      createChart(jid);
+    }
+  }
+
+  function createChart(jid) {
+    const ctx = document.getElementById(`chart-${jid}`).getContext('2d');
+    const data = new Array(1440).fill(0);
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: generateLabels(),
+        datasets: [{
+          label: 'Online Duration (seconds)',
+          data: data,
+          backgroundColor: 'rgba(37, 211, 102, 0.6)',
+          borderColor: 'rgba(37, 211, 102, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 24,
+              callback: function(value, index, values) {
+                return index % 60 === 0 ? this.getLabelForValue(value) : '';
+              }
+            }
+          },
+          y: {
+            beginAtZero: true,
+            max: 60,
+            ticks: {
+              stepSize: 10
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.raw > 0 ? `Online for ${context.raw} seconds` : 'Offline';
+              }
+            }
+          },
+          zoom: {
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true
+              },
+              mode: 'x',
+            },
+            pan: {
+              enabled: true,
+              mode: 'x',
+            }
+          }
+        }
+      }
+    });
+    charts[jid] = chart;
+  }
+
+  function generateLabels() {
+    const labels = [];
+    for (let i = 0; i < 24; i++) {
+      for (let j = 0; j < 60; j++) {
+        labels.push(`${i.toString().padStart(2, '0')}:${j.toString().padStart(2, '0')}`);
+      }
+    }
+    return labels;
+  }
+
+  function updateChart(jid, onlineRanges, isOnline) {
+    if (!charts[jid]) {
+      console.error(`Chart for JID ${jid} not found`);
+      return;
+    }
+    const data = new Array(1440).fill(0);
+    const currentDay = moment().startOf('day');
+    if (onlineRanges && onlineRanges.length > 0) {
+      onlineRanges.forEach(range => {
+        if (range && range.start && range.end) {
+          let start = moment(range.start);
+          const end = moment(range.end);
+          while (start.isBefore(end) && start.isBefore(moment(currentDay).add(1, 'day'))) {
+            if (start.isSameOrAfter(currentDay)) {
+              const dataIndex = start.diff(currentDay, 'minutes');
+              if (dataIndex >= 0 && dataIndex < 1440) {
+                data[dataIndex]++;
+              }
+            }
+            start.add(1, 'second');
+          }
+        }
+      });
+    }
+    charts[jid].data.datasets[0].data = data;
+    charts[jid].update();
+    updateStatusIndicator(jid, isOnline);
+  }
+
+  function updateStatusIndicator(jid, isOnline) {
+    const statusElement = document.getElementById(`status-${jid}`);
+    const headerElement = statusElement.closest('.chart-header');
+    statusElement.textContent = isOnline ? "Online" : "Offline";
+    statusElement.className = `status-indicator ${isOnline ? "status-online" : "status-offline"}`;
+    headerElement.classList.toggle('online', isOnline);
+  }
+
+  function updateChartTitles(updates) {
+    updates.forEach(update => {
+      if (update && update.jid) {
+        const container = document.getElementById(`${update.jid}`);
+        if (container) {
+          const usernameElement = container.querySelector('.chart-username');
+          if (usernameElement) {
+            usernameElement.textContent = update.username ? `${update.username}` : '';
+          }
+        }
+      }
+    });
+  }
+
+  function fetchUpdates() {
+    fetch('/api/status-updates')
+            .then(response => response.json())
+            .then(updates => {
+              updateChartTitles(updates);
+              updates.forEach(update => {
+                if (update && update.jid) {
+                  const content = document.getElementById(`chart-content-${update.jid}`);
+                  if (content.classList.contains('active')) {
+                    if (!charts[update.jid]) {
+                      createChart(update.jid);
+                    }
+                    updateChart(update.jid, update.onlineRanges, update.isOnline);
+                  } else {
+                    updateStatusIndicator(update.jid, update.isOnline);
+                  }
+                }
+              });
+            })
+            .catch(error => console.error('Error fetching updates:', error));
+  }
+
+  function setupSearch() {
+    const searchInput = document.getElementById('search-input');
+    const chartsContainer = document.getElementById('charts-container');
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      const chartContainers = chartsContainer.getElementsByClassName('chart-container');
+
+      Array.from(chartContainers).forEach(container => {
+        const title = container.querySelector('.chart-title').textContent.toLowerCase();
+        const username = container.querySelector('.chart-username').textContent.toLowerCase();
+
+        if (title.includes(searchTerm) || username.includes(searchTerm)) {
+          container.style.display = '';
+        } else {
+          container.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  setInterval(fetchUpdates, 1000);
+  fetchUpdates();
+  setupSearch();
+</script>
+</body>
+</html>
