@@ -1,13 +1,15 @@
-# WhatsApp Status Monitor
+# 📱 WhatsApp Online Status Tracker
 
-WhatsApp Status Monitor is a tool that allows you to track the online/offline status of selected WhatsApp contacts. It provides a web interface to select contacts and view their status over time.
+Track your contacts' online activity on WhatsApp | Get real-time notifications 🔔 and view historical data 📊
 
 ## Features
 
-- Select WhatsApp contacts to monitor
-- Real-time status updates
-- Visual representation of online/offline periods
-- Responsive web interface
+- 👀 Monitor selected WhatsApp contacts' online/offline status
+- ⏰ Real-time updates and notifications
+- 📈 Visual representation of online periods
+- 📜 Historical data of online activity
+- 🖥️ User-friendly web interface
+- 📱 Responsive design for mobile and desktop
 
 ## Prerequisites
 
