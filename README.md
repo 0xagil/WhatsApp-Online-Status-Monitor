@@ -1,8 +1,17 @@
-# 📱 WhatsApp Online Status Tracker
+<div align="center">
+  <h1>📱 WhatsApp Online Status Tracker</h1>
+  <p><em>Monitor your contacts' WhatsApp activity with real-time notifications 🔔 and historical data 📊</em></p>
 
-Track your contacts' online activity on WhatsApp | Get real-time notifications 🔔 and view historical data 📊
+![Go Version](https://img.shields.io/badge/Go-1.22%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+[![GitHub stars](https://img.shields.io/github/stars/0xagil/WhatsApp-Online-Status-Monitor?style=social)](https://github.com/0xagil/WhatsApp-Online-Status-Monitor/stargazers)
 
-## Features
+[Features](#features) • [Prerequisites](#prerequisites) • [Installation](#installation) • [Usage](#usage) • [Contributing](#contributing) • [License](#license)
+</div>
+
+---
+
+## 🌟 Features
 
 - 👀 Monitor selected WhatsApp contacts' online/offline status
 - ⏰ Real-time updates and notifications
@@ -11,61 +20,55 @@ Track your contacts' online activity on WhatsApp | Get real-time notifications �
 - 🖥️ User-friendly web interface
 - 📱 Responsive design for mobile and desktop
 
-## Prerequisites
+## 🛠 Prerequisites
 
-Before you begin, ensure you have met the following requirements:
+Before you dive in, make sure you have:
 
-- Go 1.22 or higher installed on your system
-- A WhatsApp account
-- Basic knowledge of terminal/command line operations
+- 🐹 Go 1.22 or higher installed
+- 💬 A WhatsApp account
+- 💻 Basic knowledge of terminal/command line operations
 
-## Installation
+## 📥 Installation
 
 1. Clone the repository:
-
-``
-git clone https://github.com/0xagil/WhatsApp-Online-Status-Monitor.git
-``
+   ```bash
+   git clone https://github.com/0xagil/WhatsApp-Online-Status-Monitor.git
+   cd WhatsApp-Online-Status-Monitor
+   ```
 2. Install the required Go packages:
+    ```bash
+    go mod tidy
+    ```
+## 🚀 Usage
+1. Launch the application:
+    ```bash
+    go run main.go
+    ```
 
-``
-go mod tidy
-``
+2. Your default web browser will open to http://localhost:8080. If not, navigate there manually.
 
-## Usage
+3. First-time setup:
 
-1. Run the application:
+   - Scan the QR code in the terminal with your WhatsApp mobile app.
+   - Once authenticated, you're ready to go!
+4. Using the web interface:
+   - 👥 "Select Contacts" page: Choose contacts to monitor.
+   - 👁️ "View Status" page: See real-time status of selected contacts.
+   - To exit, press Ctrl+C in the terminal.
 
-``
-go run main.go
-``
+## 📝 Notes
+- ✅ Your WhatsApp messages remain private; only online/offline status is tracked.
+- 🔋 Be aware of potential increased battery usage.
+- 🔒 Use responsibly and respect privacy.
 
-2. The application will start and automatically open your default web browser to `http://localhost:8080`. If it doesn't, manually open this URL in your browser.
+## 🤝 Contributing
+- We welcome contributions! Feel free to submit a Pull Request or open an issue for discussion.
 
-3. On first run, you'll need to authenticate your WhatsApp account:
-- Scan the QR code displayed in the terminal using your WhatsApp mobile app.
-- Once authenticated, the QR code will disappear, and the application will start running.
+## 📄 License
+- This project is under the MIT License.
 
-4. In the web interface:
-- Go to the "Select Contacts" page to choose which contacts you want to monitor.
-- Use the "View Status" page to see the real-time status of your selected contacts.
+## ⚠️ Disclaimer
+- This is an unofficial, independent project not affiliated with WhatsApp or its subsidiaries. Use at your own discretion.
 
-5. To stop the application, press `Ctrl+C` in the terminal where it's running.
 
-## Notes
-
-- This application does not store or share any of your WhatsApp messages. It only tracks the online/offline status of the contacts you choose to monitor.
-- Continuous use of this tool may drain your device's battery faster than normal.
-- Be mindful of privacy concerns and only use this tool responsibly and with the knowledge of the contacts you're monitoring.
-
-## Contributing
-
-Contributions to the WhatsApp Status Monitor are welcome. Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Disclaimer
-
-This project is not affiliated with, authorized, maintained, sponsored or endorsed by WhatsApp or any of its affiliates or subsidiaries. This is an independent and unofficial software. Use at your own risk.
+<div align="center"> <sub>Built with ❤️ by <a href="https://github.com/0xagil">0xagil</a></sub> </div>
