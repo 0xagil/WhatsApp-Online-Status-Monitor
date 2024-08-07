@@ -47,7 +47,7 @@ Before you dive in, make sure you have:
 ## 🚀 Usage
 1. Launch the application:
     ```bash
-    go run main.go
+    go run .
     ```
 
 2. Your default web browser will open to http://localhost:8080. If not, navigate there manually.
